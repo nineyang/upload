@@ -79,6 +79,7 @@ split -b 10m file file_part_
 split -l 100 file file_part_
 ```
 `-l 100`代表以`100`行为一个节点来划分文件
+
 ![7a647477-9d21-4a5f-8773-c125087b4b0a.png][4]
 
 3. 其他
