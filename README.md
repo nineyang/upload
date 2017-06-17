@@ -86,6 +86,7 @@ split -l 100 file file_part_
 split -a 4 -n 4 file file_part_
 ```
 `-a 4`用来设置生成的名字的长度
+
 ![8811cdbb-b975-4d77-85ff-d17ad8424422.png][5]
 
 ### 合并
@@ -142,8 +143,8 @@ echo ftell($handler) . PHP_EOL;
 ```
 
 ## 参考
-[AJAX大文件切割上传(带进度条)](http://www.cnblogs.com/tlijian/p/3509215.html)
-[Linux split指令](https://blog.gtwang.org/linux/split-large-tar-into-multiple-files-of-certain-size/)
+- [AJAX大文件切割上传(带进度条)](http://www.cnblogs.com/tlijian/p/3509215.html)
+- [Linux split指令](https://blog.gtwang.org/linux/split-large-tar-into-multiple-files-of-certain-size/)
 
 
   [1]: http://www.hellonine.top/usr/uploads/2017/06/4221878456.png
