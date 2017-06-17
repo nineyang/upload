@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>大文本上传</title>
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<style type="text/css">
+	.btn{
+		width:80px;
+		text-align: center;	
+		height:30px;
+		line-height: 30px;
+		background: #01549b;
+		opacity: 0.8;
+		display: inline-block;
+		border-radius: 4px;
+		cursor: pointer;
+		color: white;
+		font-size:14px;
+		outline: none;
+		border:none;
+	}
+</style>
+<body>
+	<label for="upload" class="btn">点击上传</label>
+	<input type="file" id="upload" style="display:none" name="upload">
+</body>
+<script type="text/javascript">
+// 设置切割文件的大小(单位kb)
+	const LIMIT = 40000;
+// 设置后台的url
+	var url = 'upload.php';
+// 记录开始大小
+	var start = 0;
+// 记录游标
+	var offset = 0;
+
+	$(function(){
+		var startUpload = function(file){
+			while(file.size > start){
+				var form = new FormData();
+				form.append('fileData', file.slice(offset * LIMIT , (offset + 1) * LIMIT));
+				// 配合后台逻辑判断是否完结
+				form.append('isFinished' , file.size - start > LIMIT ? false : true);
+				// 保存名字
+				form.append('name' , file.name);
+				// 这里可以用来记录文件的上传的块，可以用来断点续传
+				form.append('currBlock' , start);
+				$.ajax({
+				    url: url,
+				    type: 'POST',
+				    cache: false,
+				    data: form,
+				    processData: false,
+				    contentType: false
+				}).done(function(res) {
+					console.log(res);
+				}).fail(function(res) {
+					console.log(res);
+				});
+				start += LIMIT;
+				offset ++ ;
+			}
+		}
+		$('#upload').change(function(){
+			var file = $(this).prop('files')[0];
+			// startUpload(file);
+			console.log(file.slice(0,100));
+		});
+	});
+</script>
+</html>
